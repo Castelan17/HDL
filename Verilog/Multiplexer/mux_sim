@@ -1,0 +1,62 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2009.vpi";
+S_0000019eac296850 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0000019eac2969e0 .scope module, "test" "test" 3 1;
+ .timescale 0 0;
+v0000019eac262d60_0 .var "in1", 0 0;
+v0000019eac262e00_0 .var "in2", 0 0;
+v0000019eac262ea0_0 .net "out", 0 0, L_0000019eac3abd20;  1 drivers
+v0000019eac3abc80_0 .var "select", 0 0;
+S_0000019eac262b30 .scope module, "mux" "mux2_1" 3 7, 4 1 0, S_0000019eac2969e0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "in1";
+    .port_info 1 /INPUT 1 "in2";
+    .port_info 2 /INPUT 1 "select";
+    .port_info 3 /OUTPUT 1 "out";
+v0000019eac263360_0 .net "in1", 0 0, v0000019eac262d60_0;  1 drivers
+v0000019eac296b70_0 .net "in2", 0 0, v0000019eac262e00_0;  1 drivers
+v0000019eac296c10_0 .net "out", 0 0, L_0000019eac3abd20;  alias, 1 drivers
+v0000019eac262cc0_0 .net "select", 0 0, v0000019eac3abc80_0;  1 drivers
+L_0000019eac3abd20 .functor MUXZ 1, v0000019eac262d60_0, v0000019eac262e00_0, v0000019eac3abc80_0, C4<>;
+    .scope S_0000019eac2969e0;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000019eac262d60_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000019eac262e00_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000019eac3abc80_0, 0, 1;
+    %delay 2, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000019eac262d60_0, 0, 1;
+    %delay 2, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000019eac3abc80_0, 0, 1;
+    %delay 2, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000019eac262e00_0, 0, 1;
+    %delay 2, 0;
+    %vpi_call/w 3 21 "$stop" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0000019eac2969e0;
+T_1 ;
+    %vpi_call/w 3 25 "$monitor", "time=%0d, input1=%b, input2=%b, select line=%b, output=%b", $time, v0000019eac262d60_0, v0000019eac262e00_0, v0000019eac3abc80_0, v0000019eac262ea0_0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "multiplexer_tb.v";
+    "multiplexer.v";
