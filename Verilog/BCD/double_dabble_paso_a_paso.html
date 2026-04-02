@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Double Dabble — Paso a Paso</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0d1117;
+    --bg2:      #161b22;
+    --bg3:      #21262d;
+    --border:   #30363d;
+    --text:     #e6edf3;
+    --muted:    #8b949e;
+    --teal:     #39d0a0;
+    --teal-dim: #1a4a3a;
+    --purple:   #a78bfa;
+    --purple-dim:#2d2060;
+    --amber:    #f0a500;
+    --amber-dim:#3a2800;
+    --red:      #f85149;
+    --green:    #3fb950;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    width: 100%;
+    max-width: 760px;
+  }
+
+  /* Step label */
+  .step-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+  .step-label span {
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  /* Register display */
+  .register {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .group-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .group {
+    display: flex;
+    gap: 3px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .group.highlight {
+    border-color: var(--teal);
+    background: var(--teal-dim);
+  }
+
+  .group-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+  }
+
+  .sep {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+    margin: 0 4px;
+  }
+
+  .bit {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .bit.one {
+    background: #1c3a2e;
+    color: var(--teal);
+  }
+
+  .highlight .bit.one {
+    background: var(--teal);
+    color: #0d1117;
+  }
+
+  .highlight .bit {
+    background: rgba(57,208,160,0.15);
+    color: var(--teal);
+  }
+
+  /* Note box */
+  .note-box {
+    margin: 16px 0;
+    min-height: 36px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .note-box.add-note {
+    border-color: var(--amber);
+    background: var(--amber-dim);
+    color: var(--amber);
+  }
+
+  .note-box.shift-note {
+    border-color: var(--purple);
+    background: var(--purple-dim);
+    color: var(--purple);
+  }
+
+  .note-box.done-note {
+    border-color: var(--green);
+    background: #0d2a15;
+    color: var(--green);
+  }
+
+  /* BCD result */
+  .bcd-result {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .digit-card {
+    flex: 1;
+    min-width: 70px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .digit-card.active {
+    border-color: var(--teal);
+  }
+
+  .digit-val {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .digit-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .decimal-display {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .decimal-display strong {
+    color: var(--text);
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-family: var(--sans);
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .btn:hover:not(:disabled) {
+    background: #2d333b;
+    border-color: #6e7681;
+  }
+
+  .btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .btn.primary {
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+
+  .btn.primary:hover:not(:disabled) {
+    background: var(--teal-dim);
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    flex: 1;
+    min-width: 120px;
+    height: 6px;
+    background: var(--bg3);
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 3px;
+    transition: width 0.2s;
+  }
+
+  .progress-lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 52px;
+    text-align: right;
+  }
+
+  /* Algorithm explainer box */
+  .algo-box {
+    margin-top: 20px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .algo-box code {
+    font-family: var(--mono);
+    color: var(--teal);
+    background: rgba(57,208,160,0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+
+  .tag.add  { background: var(--amber-dim); color: var(--amber); }
+  .tag.shift { background: var(--purple-dim); color: var(--purple); }
+  .tag.done  { background: #0d2a15; color: var(--green); }
+</style>
+</head>
+<body>
+
+<h1>Double Dabble — Binario a BCD</h1>
+<p class="subtitle">Convirtiendo 255 (0b11111111) paso a paso</p>
+
+<div class="card">
+
+  <!-- BCD digit display -->
+  <div class="bcd-result">
+    <div class="digit-card" id="dc-mil">
+      <div class="digit-val" id="dv-mil">0</div>
+      <div class="digit-lbl">Miles</div>
+    </div>
+    <div class="digit-card" id="dc-cen">
+      <div class="digit-val" id="dv-cen">0</div>
+      <div class="digit-lbl">Centenas</div>
+    </div>
+    <div class="digit-card" id="dc-dec">
+      <div class="digit-val" id="dv-dec">0</div>
+      <div class="digit-lbl">Decenas</div>
+    </div>
+    <div class="digit-card" id="dc-uni">
+      <div class="digit-val" id="dv-uni">0</div>
+      <div class="digit-lbl">Unidades</div>
+    </div>
+  </div>
+
+  <div class="decimal-display" id="decimal-display">
+    Decimal: <strong>0</strong> &nbsp;|&nbsp; Objetivo: <strong>255</strong>
+  </div>
+
+  <!-- Step label -->
+  <div class="step-label" id="step-label">PASO <span>0 / 24</span> — Estado inicial</div>
+
+  <!-- Register bits -->
+  <div class="register" id="register-row"></div>
+
+  <!-- Note -->
+  <div class="note-box" id="note-box">Estado inicial — binario cargado, grupos BCD en cero.</div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn" id="btn-prev" onclick="step(-1)" disabled>&#8592; Anterior</button>
+    <button class="btn primary" id="btn-next" onclick="step(1)">Siguiente &#8594;</button>
+    <button class="btn" onclick="reset()">&#8635; Reiniciar</button>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-lbl" id="prog-lbl">0 / 24</div>
+  </div>
+
+  <!-- Algorithm note -->
+  <div class="algo-box">
+    <span class="tag add">ADD</span> Si grupo BCD &gt; 4 → sumar <code>+3</code> al vector (el carry sube al grupo siguiente automáticamente)<br>
+    <span class="tag shift">SHIFT</span> Desplazar todo el registro 1 bit a la izquierda — los bits binarios suben a los grupos BCD<br>
+    <span class="tag done">DONE</span> Después de 12 shifts: cada grupo de 4 bits es un dígito decimal válido (0–9)
+  </div>
+
+</div>
+
+<script>
+const INPUT = 255;
+const BITS = 12;
+
+function toBits(val, n) {
+  return Array.from({length: n}, (_, i) => (val >> (n - 1 - i)) & 1);
+}
+
+function buildSteps() {
+  let val = INPUT; // lower 12 = bin, upper 16 = BCD
+  let steps = [];
+  steps.push({ val, note: 'Estado inicial — binario cargado en [11:0], grupos BCD en cero.', phase: 'init', corrections: [] });
+
+  for (let sh = 0; sh < BITS; sh++) {
+    let corrections = [];
+    let note_parts = [];
+
+    let uni = (val >> 12) & 0xF;
+    if (uni > 4) { val += (3 << 12); corrections.push('uni'); note_parts.push(`unidades=${uni} > 4 → +3`); }
+    let dec = (val >> 16) & 0xF;
+    if (dec > 4) { val += (3 << 16); corrections.push('dec'); note_parts.push(`decenas=${dec} > 4 → +3`); }
+    let cen = (val >> 20) & 0xF;
+    if (cen > 4) { val += (3 << 20); corrections.push('cen'); note_parts.push(`centenas=${cen} > 4 → +3`); }
+    let mil = (val >> 24) & 0xF;
+    if (mil > 4) { val += (3 << 24); corrections.push('mil'); note_parts.push(`miles=${mil} > 4 → +3`); }
+
+    const addNote = note_parts.length
+      ? note_parts.join('  |  ')
+      : 'Ningún grupo > 4 — sin corrección necesaria.';
+
+    steps.push({ val, note: addNote, phase: 'add', shNum: sh + 1, corrections });
+
+    val = (val << 1) & 0xFFFFFFF;
+    steps.push({ val, note: `Shift ${sh + 1} de ${BITS} — registro desplazado 1 bit a la izquierda.`, phase: 'shift', shNum: sh + 1, corrections: [] });
+  }
+
+  // Final done step
+  steps.push({ val, note: `¡Conversión completa! 255 decimal = BCD 0010 0101 0101`, phase: 'done', corrections: [] });
+  return steps;
+}
+
+const steps = buildSteps();
+let cur = 0;
+
+function getGroups(val) {
+  return {
+    mil: (val >> 24) & 0xF,
+    cen: (val >> 20) & 0xF,
+    dec: (val >> 16) & 0xF,
+    uni: (val >> 12) & 0xF,
+    bin: val & 0xFFF
+  };
+}
+
+function renderBitGroup(val, n, highlight) {
+  const bits = toBits(val, n);
+  return bits.map(b =>
+    `<div class="bit${b ? ' one' : ''}">${b}</div>`
+  ).join('');
+}
+
+function render() {
+  const s = steps[cur];
+  const g = getGroups(s.val);
+  const corr = s.corrections || [];
+
+  // BCD digit cards
+  ['mil','cen','dec','uni'].forEach(k => {
+    document.getElementById(`dv-${k}`).textContent = g[k];
+    document.getElementById(`dc-${k}`).classList.toggle('active', g[k] > 0);
+  });
+
+  // Decimal display
+  const bcdVal = g.mil*1000 + g.cen*100 + g.dec*10 + g.uni;
+  document.getElementById('decimal-display').innerHTML =
+    `Decimal BCD: <strong>${bcdVal}</strong> &nbsp;|&nbsp; Objetivo: <strong>255</strong>`;
+
+  // Step label
+  const stepEl = document.getElementById('step-label');
+  const phaseMap = { init: 'INICIO', add: 'ADD — revisión de grupos', shift: 'SHIFT — desplazamiento', done: 'DONE — conversión completa' };
+  stepEl.innerHTML = `PASO <span>${cur} / ${steps.length - 1}</span> — ${phaseMap[s.phase] || s.phase}`;
+
+  // Register row
+  const row = document.getElementById('register-row');
+  const groups = [
+    { id: 'mil', val: g.mil, n: 4, label: '[27:24] miles' },
+    { id: 'cen', val: g.cen, n: 4, label: '[23:20] centenas' },
+    { id: 'dec', val: g.dec, n: 4, label: '[19:16] decenas' },
+    { id: 'uni', val: g.uni, n: 4, label: '[15:12] unidades' },
+  ];
+
+  row.innerHTML = groups.map(grp => {
+    const hl = s.phase === 'add' && corr.includes(grp.id);
+    return `
+      <div class="group-wrap">
+        <div class="group${hl ? ' highlight' : ''}">${renderBitGroup(grp.val, grp.n, hl)}</div>
+        <div class="group-label">${grp.label}</div>
+      </div>`;
+  }).join(`<div class="sep"></div>`) +
+  `<div class="sep"></div>
+   <div class="group-wrap">
+     <div class="group" style="border-color:#444">${renderBitGroup(g.bin, 12, false)}</div>
+     <div class="group-label">[11:0] binario</div>
+   </div>`;
+
+  // Note box
+  const noteEl = document.getElementById('note-box');
+  noteEl.className = 'note-box';
+  if (s.phase === 'add') noteEl.classList.add('add-note');
+  else if (s.phase === 'shift') noteEl.classList.add('shift-note');
+  else if (s.phase === 'done') noteEl.classList.add('done-note');
+  noteEl.textContent = s.note;
+
+  // Progress
+  const pct = Math.round((cur / (steps.length - 1)) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-lbl').textContent = `${cur} / ${steps.length - 1}`;
+
+  // Buttons
+  document.getElementById('btn-prev').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === steps.length - 1;
+  document.getElementById('btn-next').textContent = cur === steps.length - 1 ? '¡Listo!' : 'Siguiente →';
+}
+
+function step(dir) {
+  cur = Math.max(0, Math.min(steps.length - 1, cur + dir));
+  render();
+}
+
+function reset() { cur = 0; render(); }
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') step(1);
+  if (e.key === 'ArrowLeft') step(-1);
+});
+
+render();
+</script>
+</body>
+</html>
