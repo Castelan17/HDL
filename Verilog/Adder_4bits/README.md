@@ -1,7 +1,7 @@
 #Adder_4bits
 
-* This project is just a way to recapitulate A full adder 
-Is the same in funtion, maybe my tb is such a diferent but I dont think it could be dificult to understand
+* This project is just a way to recap a full adder. 
+Is the same in funtion as I said, maybe my tb is a bit diferent, but I don't think it would be dificult to understand
 
 
 > I added 5 + 3 
