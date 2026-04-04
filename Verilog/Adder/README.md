@@ -1,8 +1,8 @@
 # Full Adder
 
-*This is the first parte of 2 projects, the second one is 4 bits adder
+*This is the first part of 2 projects. The second one is 4-bits adder.
 
-> For this project I used Icarus Verilog and gtkwave.
+> For this project, I used Icarus Verilog and gtkwave.
 
 ```verilog
 VCD info: dumpfile adder.vcd opened for output.
