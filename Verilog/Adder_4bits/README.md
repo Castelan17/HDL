@@ -1,7 +1,8 @@
 #Adder_4bits
 
-* This project is just a way to recap a full adder. 
-Is the same in funtion as I said, maybe my tb is a bit diferent, but I don't think it would be dificult to understand
+* This project is just a way to recap a full adder.
+It is the same in function as I said, maybe my tb is a bit different, but I don't think it would be difficult to understand
+I have to say it: this version and the adder_4bits_v2 that you can find in my previous file are the same. I just found another different way to do it.
 
 
 > I added 5 + 3 
