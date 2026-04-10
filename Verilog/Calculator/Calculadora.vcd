@@ -1,0 +1,153 @@
+$date
+	Thu Apr 09 19:36:04 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module Calculadora_tb $end
+$var wire 8 ! resultado [7:0] $end
+$var wire 8 " c [7:0] $end
+$var wire 12 # bcd [11:0] $end
+$var reg 4 $ a [3:0] $end
+$var reg 4 % b [3:0] $end
+$var reg 1 & clk $end
+$var reg 1 ' clr $end
+$var reg 1 ( guardar $end
+$var reg 4 ) op [3:0] $end
+$scope module uut $end
+$var wire 4 * a [3:0] $end
+$var wire 4 + b [3:0] $end
+$var wire 1 & clk $end
+$var wire 1 ' clr $end
+$var wire 1 ( guardar $end
+$var wire 4 , op [3:0] $end
+$var wire 1 - guardar_i $end
+$var wire 1 . clr_i $end
+$var reg 12 / bcd [11:0] $end
+$var reg 8 0 c [7:0] $end
+$var reg 8 1 resultado [7:0] $end
+$var integer 32 2 i [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b1000 2
+bx 1
+b0 0
+b0 /
+0.
+0-
+b0 ,
+b0 +
+b0 *
+b0 )
+0(
+0'
+0&
+b0 %
+b0 $
+b0 #
+b0 "
+bx !
+$end
+#10000
+1&
+#20000
+b1000 #
+b1000 /
+b1000 2
+b1000 "
+b1000 0
+b11 %
+b11 +
+b101 $
+b101 *
+0&
+#30000
+1&
+#40000
+0&
+#50000
+1&
+#60000
+1(
+0&
+#70000
+b1000 !
+b1000 1
+1&
+#80000
+0(
+0&
+#90000
+1&
+#91000
+b1000 2
+b10010 #
+b10010 /
+b1100 "
+b1100 0
+b11 )
+b11 ,
+b100 %
+b100 +
+b11 $
+b11 *
+#100000
+0&
+#110000
+1&
+#120000
+0&
+#130000
+1&
+#131000
+b1000 2
+b1000 #
+b1000 /
+b1000 "
+b1000 0
+b111 )
+b111 ,
+#140000
+0&
+#150000
+1&
+#160000
+0&
+#170000
+1&
+#171000
+b1000 2
+b0 #
+b0 /
+b0 "
+b0 0
+1.
+b110 )
+b110 ,
+#180000
+0&
+#190000
+b0 !
+b0 1
+1&
+#200000
+0&
+#210000
+1&
+#220000
+0&
+#230000
+1&
+#240000
+0&
+#250000
+1&
