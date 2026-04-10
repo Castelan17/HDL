@@ -1,4 +1,4 @@
-#Alu 4bits
+# Alu 4bits
 
 This calculator is a union between some basic operators and two new functions. You can use: 
 - 0000 as an add
