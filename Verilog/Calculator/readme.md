@@ -7,12 +7,12 @@ This calculator is a union between some basic operators and two new functions. Y
 - 0011 as a multiplier
 - 0100 as a power
 
-#Aditional 
+## Aditional 
 - 0101 you can save your result
 - 0110 you can erase this save
 - and 0111 you can show your last saved number
 
-This project includes a BCD converter. 
+This project includes a BCD converter :D. 
 
 ```verilog
 VCD info: dumpfile Calculadora.vcd opened for output.
@@ -32,6 +32,5 @@ t=171 | a= 3 b= 4 op=0110 | c=  0 resultado=  8  bcd =000000000000
 CLR -> resultado=0
 ===Fin de la simulacion===
 ```
-// Also you can use a new tool: 
-- https://digitaljs.tilk.eu
-- Just upload the JSON in this file and you can interac with my design. 
+> [!NOTE]
+> Also you can use a new tool:  https://digitaljs.tilk.eu  Just upload the JSON in this file and you can interac with my design. 
