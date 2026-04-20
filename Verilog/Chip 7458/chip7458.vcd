@@ -1,0 +1,117 @@
+$date
+	Sun Apr 19 20:39:16 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module chip7458_tb $end
+$var wire 1 ! p1y $end
+$var wire 1 " p2y $end
+$var reg 1 # p1a $end
+$var reg 1 $ p1b $end
+$var reg 1 % p1c $end
+$var reg 1 & p1d $end
+$var reg 1 ' p1e $end
+$var reg 1 ( p1f $end
+$var reg 1 ) p2a $end
+$var reg 1 * p2b $end
+$var reg 1 + p2c $end
+$var reg 1 , p2d $end
+$scope module utt $end
+$var wire 1 # p1a $end
+$var wire 1 $ p1b $end
+$var wire 1 % p1c $end
+$var wire 1 & p1d $end
+$var wire 1 ' p1e $end
+$var wire 1 ( p1f $end
+$var wire 1 - p1y $end
+$var wire 1 ) p2a $end
+$var wire 1 * p2b $end
+$var wire 1 + p2c $end
+$var wire 1 , p2d $end
+$var wire 1 . p2y $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+0.
+0-
+0,
+0+
+0*
+0)
+0(
+0'
+0&
+0%
+0$
+0#
+z"
+z!
+$end
+#10000
+1.
+1*
+1)
+#20000
+1,
+1+
+0*
+0)
+#30000
+1*
+1)
+#40000
+0.
+0,
+0*
+#50000
+0+
+0)
+#60000
+1-
+1%
+1$
+1#
+#70000
+1-
+1(
+1'
+1&
+0%
+0$
+0#
+#80000
+1%
+1$
+1#
+#90000
+0-
+0(
+0'
+0&
+0%
+#100000
+1'
+1&
+0$
+0#
+#110000
+1-
+1.
+1,
+1+
+1*
+1)
+1(
+1%
+1$
+1#
+#120000
